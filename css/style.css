@@ -23,6 +23,10 @@ img{
   margin: 0 auto;
 }
 
+iframe{
+  height: 500px;
+  width: 500px;
+}
 
 /******************************************
 /* ADDITIONAL STYLES

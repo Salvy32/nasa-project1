@@ -2,17 +2,20 @@
 document.querySelector("button").addEventListener("click", nasaPictureOfTheDay);
 
 function nasaPictureOfTheDay() {
-  let nasa = document.querySelector("input").value;
+  const choice = document.querySelector("input").value;
+  console.log(choice);
+  const url = `https://api.nasa.gov/planetary/apod?api_key=KiyhJcspmIZul8HNQ41NsuIwJwQLlfvUgAnePA5G&date=${choice}`;
 
-  fetch(
-    `https://api.nasa.gov/planetary/apod?api_key=KiyhJcspmIZul8HNQ41NsuIwJwQLlfvUgAnePA5G&date=${nasa}`
-  )
+  fetch(url)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      document.querySelector("img").src = data.url;
-      document.querySelector("h1").innerText = data.date;
-      document.querySelector("h2").innerText = data.title;
+      if (data.media_type === "image") {
+        document.querySelector("img").src = data.hdurl;
+      } else if (data.media_type === "video") {
+        document.querySelector("iframe").src = data.url;
+      }
+
       document.querySelector("h3").innerText = data.explanation;
     })
     .catch((err) => {
